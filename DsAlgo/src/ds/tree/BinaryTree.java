@@ -2,6 +2,7 @@ package ds.tree;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 /*
  * Binary Tree Properties:
@@ -167,4 +168,76 @@ public class BinaryTree {
 		
 	}
 	
+	/**
+	 * Using Morris Traversal, we can traverse the tree without using stack and recursion.
+	 * The idea of Morris Traversal is based on Threaded Binary Tree.
+	 * In this traversal, we first create links to Inorder successor 
+	 * and print the data using these links, and finally revert the changes to restore original tree.
+	 * 
+	 * @param root
+	 */
+	public void printMorrisInorderTraversal(TreeNode root) {
+		if(root == null){
+			return;
+		}
+		TreeNode current = root;
+		TreeNode predecessor = null;
+		while(current!=null) {
+			if(current.left == null) {
+				System.out.print(current.data+"\t");
+				current=current.right;
+			} else {
+				predecessor = current.left;
+				
+				//find the predecessor of the current(rightmost node of the left child)
+				while(predecessor.right!=null && predecessor.right!=current)
+					predecessor=predecessor.right;
+				/* Revert the changes made in if part to restore the 
+                original tree i.e.,fix the right child of predecssor*/
+				if(predecessor.right==current) {
+					predecessor.right=null;
+					System.out.print(current.data+"\t");
+					current=current.right;
+				} else{
+					predecessor.right=current;
+					current=current.left;
+				}
+			}
+		}
+	}
+	/**
+	 * Using Stack is the obvious way to traverse tree without recursion. 
+	 * Below is an algorithm for traversing binary tree using stack. 
+	 * 1) Create an empty stack S.
+	 * 2) Initialize current node as root
+	 * 3) Push the current node to S and set current = current->left until current is NULL
+	 * 4) If current is NULL and stack is not empty then 
+	 * 		a) Pop the top item from stack.
+	 * 		b) Print the popped item, set current = popped_item->right 
+	 * 		c) Go to step 3.
+	 * 5) If current is NULL and stack is empty then we are done.
+	 * 
+	 * @param root
+	 */
+	public void printInOrderWithStack(TreeNode root) {
+		if(root == null) {
+			return;
+		}
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		stack.push(root);
+		TreeNode current = root.left;
+		while(current!=null) {
+			stack.push(current);
+			current=current.left;
+		}
+		while(!stack.isEmpty()) {
+			current=stack.pop();
+			System.out.print(current.data+"\t");
+			current=current.right;
+			while(current!=null) {
+				stack.push(current);
+				current=current.left;
+			}
+		}
+	}
 }

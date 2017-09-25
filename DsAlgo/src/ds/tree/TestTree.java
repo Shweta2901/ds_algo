@@ -19,5 +19,9 @@ public static void main(String[] args) {
 	tree.printPreOrderTraversal(root);
 	System.out.println("\nPost Order:");
 	tree.printPostOrderTraversal(root);
+	System.out.println("\nMorris Inorder Order:");
+	tree.printMorrisInorderTraversal(root);
+	System.out.println("\nInorder Order Using Stack:");
+	tree.printInOrderWithStack(root);
 }
 }
