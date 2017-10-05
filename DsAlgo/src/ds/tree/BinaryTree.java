@@ -240,4 +240,20 @@ public class BinaryTree {
 			}
 		}
 	}
+	
+	public void printPreOrderWithStack(TreeNode root) {
+		if(root == null) {
+			return;
+		}
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		stack.push(root);
+		while(!stack.isEmpty()) {
+			TreeNode current=stack.pop();
+			System.out.print(current.data+"\t");
+			if(current.right!=null)
+				stack.push(current.right);
+			if(current.left!=null)
+				stack.push(current.left);
+		}
+	}
 }

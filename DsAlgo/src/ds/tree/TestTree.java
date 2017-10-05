@@ -11,7 +11,7 @@ public static void main(String[] args) {
 	root.left.right=new TreeNode(5);
 	root.right.left=new TreeNode(6);
 	root.right.right=new TreeNode(7);
-	System.out.println("Level Order:");
+	/*System.out.println("Level Order:");
 	tree.printLevelOrderTraversal(root);
 	System.out.println("\nIn Order:");
 	tree.printInOrderTraversal(root);
@@ -22,6 +22,8 @@ public static void main(String[] args) {
 	System.out.println("\nMorris Inorder Order:");
 	tree.printMorrisInorderTraversal(root);
 	System.out.println("\nInorder Order Using Stack:");
-	tree.printInOrderWithStack(root);
+	tree.printInOrderWithStack(root);*/
+	System.out.println("PreOrder Order Using Stack:");
+	tree.printPreOrderWithStack(root);
 }
 }
