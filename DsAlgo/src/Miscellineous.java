@@ -7,11 +7,7 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 public class Miscellineous {
-	
-	public void getSequence(int n) {
-		
-	}
-	
+	static int preIndex=0;
 	public String sequence(int current,int n,String s) {
 		if(current==n) {
 			return s;
@@ -30,43 +26,43 @@ public class Miscellineous {
 		}
 		return seq5;
 	}
-	//This method prompts the user for the name of a file and then counts the
-	//occurrences of words in the file (ignoring case).  It then reports the
-	//frequencies using a cutoff supplied by the user that limits the output
-	//to just those words with a certain minimum frequency.
-	public void getWordCountInFile() throws FileNotFoundException {
-		// open the file
-	     Scanner console = new Scanner(System.in);
-	     System.out.print("What is the name of the text file? ");
-	     String fileName = console.nextLine();
-	     Scanner input = new Scanner(new File(fileName));
-
-	     // count occurrences
-	     Map<String, Integer> wordCounts = new TreeMap<String, Integer>();
-	     while (input.hasNext()) {
-	         String next = input.next().toLowerCase();
-	         if (!wordCounts.containsKey(next)) {
-	             wordCounts.put(next, 1);
-	         } else {
-	             wordCounts.put(next, wordCounts.get(next) + 1);
-	         }
-	     }
-
-	     // get cutoff and report frequencies
-	     System.out.println("Total words = " + wordCounts.size());
-	     System.out.print("Minimum number of occurrences for printing? ");
-	     int min = console.nextInt();
-	     for (String word : wordCounts.keySet()) {
-	         int count = wordCounts.get(word);
-	         if (count >= min)
-	             System.out.println(count + "\t" + word);
-	     }
+	
+	public static int searchInArray(int[] in,int x,int size) {
+		for(int i=0;i<size;i++) {
+			if(in[i]==x)
+				return i;
+		}
+		return -1;
+	}
+	
+	public static void printPostOrderTreeTraversal(int[] in,int[] pre,int inStart,int inEnd,int size) {
+		if(preIndex==size)
+			return;
+		//search root element(first element in preOrder array) in inorder array
+		int elementIndex= searchInArray(in,pre[preIndex++],size);
+		//process the left subtree of the root
+		if(elementIndex!=inStart) 
+			printPostOrderTreeTraversal(in,pre,inStart,elementIndex-1,size);
+		
+		//process right sub tree of the root
+		if(elementIndex!=inEnd)
+			printPostOrderTreeTraversal(in,pre,elementIndex+1,inEnd,size);
+		//print root element
+				System.out.println(in[elementIndex]);
+		//System.out.println(in[elementIndex]);	
 	}
 	
 	public static void main(String args[]){
 		Miscellineous obj = new Miscellineous();
 		
 		System.out.println(obj.sequence(1,15,"1"));
+		int in[] = {4, 2, 5, 1, 6,3,7};
+		   int pre[] =  {1, 2, 4, 5, 3, 6,7};
+		   int n = in.length;
+		   
+		   printPostOrderTreeTraversal(in,pre,0,n,n);
+		
+		
 	}
 
 }

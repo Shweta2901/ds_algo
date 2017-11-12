@@ -22,8 +22,17 @@ public static void main(String[] args) {
 	System.out.println("\nMorris Inorder Order:");
 	tree.printMorrisInorderTraversal(root);
 	System.out.println("\nInorder Order Using Stack:");
-	tree.printInOrderWithStack(root);*/
-	System.out.println("PreOrder Order Using Stack:");
-	tree.printPreOrderWithStack(root);
+	tree.printInOrderWithStack(root);
+	//System.out.println("\nPreOrder Order Using Stack:");
+	//tree.printPreOrderWithStack(root);
+	//System.out.println("\nPreOrder Morris Traversal of tree");
+	tree.printMorrisPreOrderTraversal(root);
+	System.out.println("\nIterative Post Order Traversal using two stacks");
+	tree.printPostOrder2Stack(root);
+	System.out.println("\nReversal Level Order Traversal Recurssive ");
+	tree.ReverseLevelOrderTraversalRecurssive(root);
+	System.out.println("\nReversal Level Order Traversal ");*/
+	tree.printDiagonalTreeTraversal(root);
+	
 }
 }
