@@ -50,4 +50,21 @@ public class DyanmicProgramming {
 	public void longestIncreasingSubsequence(){
 		
 	}
+	
+	/*
+	 * The problem is to count all the possible paths from top left to bottom right of a mXn matrix 
+	 * with the constraints that from each cell you can either move only to right or down
+	 * 
+	 * */
+	
+	
+	/*
+	 * The problem is to print all the possible paths from top left to bottom right of a mXn matrix 
+	 * with the constraints that from each cell you can either move only to right or down.
+	 * 
+	 * The algorithm is a simple recursive algorithm, 
+	 * from each cell first print all paths by going down and then print all paths by going right.
+	 * Do this recursively for each cell encountered.
+	 * 
+	 * */
 }
