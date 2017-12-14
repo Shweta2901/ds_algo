@@ -84,6 +84,31 @@ public class BinaryTree {
 		this.root = null;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((root == null) ? 0 : root.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BinaryTree other = (BinaryTree) obj;
+		if (root == null) {
+			if (other.root != null)
+				return false;
+		} else if (!root.equals(other.root))
+			return false;
+		return true;
+	}
+
 	public void setRoot(TreeNode root) {
 		this.root = root;
 	}
@@ -464,6 +489,29 @@ public class BinaryTree {
 			  }
 		  }
 	  }
+  }
+  
+  public boolean checkRootSumOfLeftRight(TreeNode root) {
+	  if(root ==null)
+		  return true;
+	  //for leaf node we return true
+	  if(root.left==null && root.right==null)
+		  return true;
+	  boolean leftChild=true;
+	  boolean rightChild=true;
+	  int leftdata=0;
+	  int rightdata=0;
+	  if(root.left!=null) {
+		  leftChild = checkRootSumOfLeftRight(root.left);
+		  leftdata = root.left.data;
+	  }
+	  if(root.right!=null) {
+		  rightChild = checkRootSumOfLeftRight(root.right);
+		  rightdata = root.right.data;
+	  }
+	  if(leftChild && rightChild && root.data == (leftdata+rightdata))
+		  return true;
+	  return false;
   }
 	
 }

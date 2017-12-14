@@ -57,15 +57,6 @@ public class Array {
 			return 0;
 		return CoinProblemWays(coins,sum-coins[excludeCoinsIndex],excludeCoinsIndex)+CoinProblemWays(coins,sum,excludeCoinsIndex+1);
 	}
-
-	/*public static int CoinProblemWaysWithDp(int[] coins,int sum) {
-		int[][] table = new int[coins.length][sum+1];
-		//if we want 0 sum with any number of coins, number of ways will be 1 (no coins)
-		for(int i=0;i<coins.length;i++)
-			table[1][0] = 1;
-		
-		//
-	}*/
 	
 	public static Integer[] removeDuplicates(int[] arr) {
 		if(arr.length==0)
@@ -78,6 +69,91 @@ public class Array {
 		return result;
 	}
 
+	/* program to find the sum of contiguous 
+	 * subarray within a one-dimensional array 
+	 * of numbers which has the largest sum.
+	 * */
+	static int maxSubArraySum(int a[], int size)
+    {
+    int max_so_far = a[0];
+    int curr_max = a[0];
+ 
+    for (int i = 1; i < size; i++)
+    {
+        curr_max = Math.max(a[i], curr_max+a[i]);
+        max_so_far = Math.max(max_so_far, curr_max);
+    }
+    return max_so_far;
+    }
+	
+	/*
+	 * An element in a sorted array can be found in O(log n) time via binary search. 
+	 * But suppose we rotate an ascending order sorted array at some pivot unknown to you beforehand. 
+	 * So for instance, 1 2 3 4 5 might become 3 4 5 1 2. 
+	 * Devise a way to find an element in the rotated array in O(log n) time.
+	 * */
+	public static int findElementInSortedRotatedArray(int[] arr,int element) {
+		//
+		if(arr.length==0)
+			return -1;
+		return binaryToSearchInRotatedSortedArray(arr,0,arr.length-1,element);
+			
+	}
+	private static int binaryToSearchInRotatedSortedArray(int[] arr,int start,int end,int element) {
+		if(end<start)
+			return -1;
+		int middle = start + (end-start)/2;
+		//check if middle element is equal to element we are searching
+		if(arr[middle]==element)
+			return middle;
+		//else check if left part of middle is sorted
+		if(arr[start]<=arr[middle-1]) {
+			//element is between start and middle-1
+			if(element>=arr[start] && element<=arr[middle-1]) {
+				return binaryToSearchInRotatedSortedArray(arr,start,middle-1,element);
+			} else { // else search in right part
+				return binaryToSearchInRotatedSortedArray(arr,middle+1,end,element);
+			}
+		} else { //if left part is not sorted right has to be sorted
+			if(element<=arr[end] && element>=arr[middle]) {
+				return binaryToSearchInRotatedSortedArray(arr,middle+1,end,element);
+			} else { // else search in left part
+				return binaryToSearchInRotatedSortedArray(arr,start,middle-1,element);
+			}
+		}
+	}
+	/* A sorted array is rotated at some unknown point, find the minimum element in it.
+	 * 
+	 * {1,2,3,4,5,6}  //arr[low]<arr[high]
+	 * {6,5,4,3,2,1}
+	 * {3,4,5,6,1,2}
+	 * */
+	public static int getMiddleInSortedRotated(int[] arr,int start,int end) {
+		if(arr.length==0)
+			return -1;
+		if(start>end)
+			return -1;
+		if(arr[start]<arr[end])
+			return start;
+		if(start==end)
+			return arr[start];
+	
+		int middle=start + (end-start)/2;
+		if(middle<end && arr[middle]>arr[middle+1])
+			return middle+1;
+		
+		if(middle<start && arr[middle]<arr[middle-1])
+			return middle;
+	
+		if(arr[middle]>arr[start]){
+			//search in right half
+			return getMiddleInSortedRotated(arr,middle+1,end);
+		} else {
+			//search in right part
+			return getMiddleInSortedRotated(arr,start,middle-1);
+		}
+		
+	}
 	public static void main(String[] args) {
 		int[] a={1,2,3,4,5,7};
 		int[] b={1,2,3,4,5,6,7};
@@ -87,9 +163,13 @@ public class Array {
 		int sum=40;
 		//System.out.println(Array.CoinProblemWays(coins, sum, 0));
 		int[] arr={1,3,5,2,10,1,4,3,5,2,5,1,2,3,5,10,11,34,2,1,5,6,3,4};
-		Integer[] result=Array.removeDuplicates(arr);
+		/*Integer[] result=Array.removeDuplicates(arr);
 		for(Integer i:result) {
 			System.out.println(i);
 		}
+		int[] maxArray={-2, -3, 4, -1, -2, 1, 5, -3};
+		System.out.println(Array.maxSubArraySum(maxArray, maxArray.length));*/
+		int[] sortedRotatedArray={10,9,8,7,6,5,4};
+		System.out.println(Array.getMiddleInSortedRotated(sortedRotatedArray, 0, sortedRotatedArray.length-1));
 	}
 }
