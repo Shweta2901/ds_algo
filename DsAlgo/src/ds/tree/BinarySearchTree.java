@@ -20,13 +20,15 @@ public class BinarySearchTree {
 	}
 	public static void main(String[] args) {
 		BinaryTree tree=new BinaryTree();
-		TreeNode root=new TreeNode(5);
+		TreeNode root=new TreeNode(10);
 		tree.setRoot(root);
-		root.left = new TreeNode(2);
-		root.right=new TreeNode(10);
-		root.left.left=new TreeNode(1);
-		root.left.right=new TreeNode(4);
+		root.left = new TreeNode(5);
+		root.right=new TreeNode(18);
+		root.left.left=new TreeNode(2);
+		root.left.right=new TreeNode(20);
 		//root.right.left=new TreeNode(2);
-		System.out.println(2^3^2^3^10);
+		//System.out.println(BinarySearchTree.isBST(root));
+		System.out.println((2+3+4+5+6+7+8)^5);
+		System.out.println((2^5+3^5+4^5+5^5+6^5+7^5+8^5));
 	}
 }
