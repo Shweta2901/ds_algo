@@ -199,8 +199,8 @@ public class BinarySearchTree extends BinaryTree {
 		tree.insert(tree.root,13);
 		tree.insert(tree.root,15);
 		tree.insert(tree.root,7);
-		tree.insert(tree.root,16);
-		tree.insert(tree.root,17);
+		//tree.insert(tree.root,16);
+		//tree.insert(tree.root,17);
 		//tree.insert(tree.root,8);
 		//tree.insert(tree.root,9);
 		tree1.root=tree1.insert(tree1.root, 4);
@@ -211,6 +211,7 @@ public class BinarySearchTree extends BinaryTree {
 		//tree.printTwoBST(tree.root, tree1.root);
 		//tree.printNodesAtDistanceKFromRoot(tree.root, 2);
 		//tree.printBoundary(tree.root);
-		System.out.println(tree.findLCA(tree.root, 15, 17).data);
+		//System.out.println(tree.findLCA(tree.root, 15, 17).data);
+		System.out.println(tree.isBalanced(tree.root));
 	}
 }
