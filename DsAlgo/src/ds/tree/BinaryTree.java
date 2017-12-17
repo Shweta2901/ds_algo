@@ -79,6 +79,8 @@ import java.util.Stack;
 public class BinaryTree {
 
 	private TreeNode root;
+	boolean v1;
+	boolean v2;
 
 	BinaryTree() {
 		this.root = null;
@@ -513,5 +515,136 @@ public class BinaryTree {
 		  return true;
 	  return false;
   }
+  
+  /*
+   * Calculate height of the root
+   * */
+  public int height(TreeNode root) {
+	  if(root==null)
+		  return 0;
+	  return Math.max(height(root.left)+1, height(root.right)+1);  
+  }
+  
+  /*
+   * The diameter of a tree (sometimes called the width) is 
+   * the number of nodes on the longest path between two leaves in the tree. 
+   * 
+   * Diameter of a tree can be calculated by only using the height function,
+   * because the diameter of a tree is nothing 
+   * but maximum value of (left_height + right_height + 1) for each node. 
+   * So we need to calculate this value (left_height + right_height + 1) for each node 
+   * and return maximum among them. 
+   * */
+	public int getDiameter(TreeNode root,int ans) {
+		if(root == null)
+			return 0;
+		int lheight=height(root.left);
+		int rheight=height(root.right);
+		
+		return(Math.max(1+lheight+rheight, ans));
+	}
 	
+	/**print left boundary on the tree from root to leaf
+	 * */
+	public void printLeftBoundary(TreeNode root) {
+		if(root == null)
+			return;
+		if(root.left!=null) {
+			System.out.print(root.data+"\t");
+			printLeftBoundary(root.left);
+		} else if(root.right!=null) {
+			System.out.print(root.data+"\t");
+			printLeftBoundary(root.right);
+		}
+		return;
+	}
+	/*
+	 * print leaves of the tree
+	 * **/
+	public void printLeaves(TreeNode root) {
+		if(root == null)
+			return;
+		if(root.left==null && root.right==null)
+			System.out.print(root.data+"\t");
+		printLeaves(root.left);
+		printLeaves(root.right);
+	}
+	
+	/**
+	 * print right boundary from leaf to root
+	 * */
+	public void printRightBoundary(TreeNode root) {
+		if(root==null)
+			return;
+		if(root.right!=null) {
+			printRightBoundary(root.right);
+			System.out.print(root.data+"\t");
+		} else if(root.left!=null) {
+			printRightBoundary(root.left);
+			System.out.print(root.data+"\t");
+		}
+	}
+	/**
+	 * Given a binary tree, 
+	 * print boundary nodes of the binary tree Anti-Clockwise starting from the root. 
+	 * */
+	public void printBoundary(TreeNode root) {
+		if(root == null)
+			return;
+		System.out.print(root.data+"\t");
+		//print left boundary
+		printLeftBoundary(root.left);
+		//print leaves
+		printLeaves(root.left);
+		printLeaves(root.right);
+		//print right boundary
+		printRightBoundary(root.right);
+	}
+	
+	/* Given a binary tree (not a binary search tree) and two values say n1 and n2, 
+	 * write a program to find the least common ancestor.
+	 * 
+	 * **/
+	public TreeNode findLCA(TreeNode root,int n1,int n2) {
+		if(root==null)
+			return null;
+		v1=false;
+		v2=false;
+		
+		TreeNode lca=findLCAUtil(root,n1,n2);
+		
+		if(v1=true && v2==true || (v1==true && ispresent(lca,n2)) || (v2==true && ispresent(lca,n1)))
+			return lca;
+		
+		return null;
+	}
+	
+	public boolean ispresent(TreeNode root, int n) {
+		if(root==null) {
+			return false;
+		}
+		if(root.data==n)
+			return true;
+		
+		return(ispresent(root.left,n)||ispresent(root.right,n));
+	}
+	
+	public TreeNode findLCAUtil(TreeNode root,int n1,int n2) {
+		if(root == null)
+			return null;
+		if(root.data == n1) {
+			v1=true;
+			return root;
+		}
+		if(root.data==n2) {
+			v2=true;
+			return root;
+		}
+		TreeNode left=findLCAUtil(root.left,n1,n2);
+		TreeNode right=findLCAUtil(root.right,n1,n2);
+		
+		if(left!=null && right!=null)
+			return root;
+		return(left!=null?left:right);
+	}
 }
