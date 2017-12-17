@@ -1,25 +1,23 @@
 package ds.tree;
 
-public class BinarySearchTree {
+public class BinarySearchTree extends BinaryTree {
 
+	TreeNode pre;
 	/* Given a binary tree, return true if it is BST, else false. 
 	 * */
-	public static boolean isBST(TreeNode root) {
-		if(root==null){
+	public boolean isBST(TreeNode root) {
+		if(root == null)
 			return true;
-		}
-		//is leaf node
-		if(root.left==null && root.right==null)
-			return true;
-		boolean leftResult=true,rightResult=true;
-		if(root.left!=null)
-			leftResult = isBST(root.left) && root.data>root.left.data;
-		if(root.right!=null)
-			rightResult = isBST(root.right) && root.data<root.right.data;
-		return (leftResult && rightResult); 
+		if(!isBST(root.left))
+			return false;
+		if(pre!=null && root.data<=pre.data) 
+			return false;
+		pre= root;
+		return isBST(root.right);
 	}
+	
 	public static void main(String[] args) {
-		BinaryTree tree=new BinaryTree();
+		BinarySearchTree tree=new BinarySearchTree();
 		TreeNode root=new TreeNode(10);
 		tree.setRoot(root);
 		root.left = new TreeNode(5);
@@ -27,8 +25,7 @@ public class BinarySearchTree {
 		root.left.left=new TreeNode(2);
 		root.left.right=new TreeNode(20);
 		//root.right.left=new TreeNode(2);
-		//System.out.println(BinarySearchTree.isBST(root));
-		System.out.println((2+3+4+5+6+7+8)^5);
-		System.out.println((2^5+3^5+4^5+5^5+6^5+7^5+8^5));
+		System.out.println(tree.isBST(root));
+		
 	}
 }
