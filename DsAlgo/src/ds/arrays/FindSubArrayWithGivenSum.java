@@ -1,8 +1,6 @@
 package ds.arrays;
 
 public class FindSubArrayWithGivenSum {
-
-	int[] array;
 	
 	public boolean findSubArrayWithSum(int[] arr,int sum) {
 		if(arr.length==0 && sum ==0)
