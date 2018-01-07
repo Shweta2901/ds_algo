@@ -67,4 +67,9 @@ public class DyanmicProgramming {
 	 * Do this recursively for each cell encountered.
 	 * 
 	 * */
+	/*https://www.geeksforgeeks.org/sliding-window-maximum-maximum-of-all-subarrays-of-size-k/
+	 * https://www.geeksforgeeks.org/trapping-rain-water/
+	 * https://www.geeksforgeeks.org/sort-array-according-order-defined-another-array/
+	 * https://www.geeksforgeeks.org/given-a-sequence-of-words-print-all-anagrams-together-set-2/
+	 */
 }
