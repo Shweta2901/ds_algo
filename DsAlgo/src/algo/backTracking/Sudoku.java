@@ -28,34 +28,30 @@ public class Sudoku {
 	}
 
 	public boolean sudoku(int row, int col) {
-		//
-		if (row >= (ROW - 1) || col >= (COLUMN - 1))
+		if(row == ROW-1 && col == COLUMN-1 )
 			return true;
-
-		if (sudokuValues[row][col] != 0) {
-			for(int i=row;i<ROW;i++){
-				for(int j=col;j<COLUMN;j++) {
-					if(sudokuValues[i][j]==0) {
-						row=i;
-						col=j;
-						break;
-					}
-				}
-			}
+		int nrow,ncol;
+		if(col<COLUMN-1) {
+			nrow=row;
+			ncol=col+1;
+		} else {
+			nrow=row+1;
+			ncol=0;
 		}
-		for (int value = 1; value <= 9; value++) {
-			if (isSafe(row, col, value)) {
-				sudokuValues[row][col] = value;
-				int nrow = row;
-				int ncol = 0;
-				if (col < COLUMN - 1)
-					ncol = col+1;
-				else
-					nrow = row+1;
-				if (sudoku(nrow, ncol))
-					return true;
-				sudokuValues[row][col] = 0;
-			}
+		if(sudokuValues[row][col]!=0) {
+			if(sudoku(nrow,ncol))
+				return true;
+		} else {
+			//verify by putting all possible values
+			for(int value=1;value<=9;value++) {
+				if(isSafe(row,col,value)) {
+					sudokuValues[row][col]=value;
+					if(sudoku(nrow,ncol)) {
+						return true;
+					}
+					sudokuValues[row][col]=0;
+				}
+			}		
 		}
 		return false;
 	}
@@ -67,13 +63,15 @@ public class Sudoku {
 				{ 1, 3, 0, 0, 0, 0, 2, 5, 0 }, { 0, 0, 0, 0, 0, 0, 0, 7, 4 }, { 0, 0, 5, 2, 0, 6, 3, 0, 0 } };
 		testObject.sudokuValues = test;
 		testObject.sudoku(0, 0);
-		//if (testObject.sudoku(0, 0)) {
+		if (testObject.sudoku(0, 0)) {
 			for (int i = 0; i < ROW; i++) {
 				for (int j = 0; j < COLUMN; j++) {
 					System.out.print(testObject.sudokuValues[i][j]+" ");
 				}
 				System.out.println("\n");
 			}
-		//}
+		} else {
+			System.out.println("Sudoku cannot be solved");
+		}
 	}
 }
