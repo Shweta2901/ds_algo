@@ -21,7 +21,7 @@ public class LongestPalindromeSubsequence {
 			for(int i=0;i<=n-len;i++) {
 				    int j=i+len-1;
 					//if last and first characters are same
-					//lps= 2+ lps(i-1,j-1)
+					//lps= 2+ lps(i+1,j-1)
 					if(str.charAt(i)==str.charAt(j)) {
 						//if string is of length 2 then max length possible is 2
 						if(len==2)
@@ -30,7 +30,7 @@ public class LongestPalindromeSubsequence {
 							l[i][j]=l[i+1][j-1]+2;
 					} else {
 						//if last and first characters are not same
-						//lps= max(lps(i-1,j),lps(i,j-1))
+						//lps= max(lps(i+1,j),lps(i,j-1))
 						l[i][j]= Math.max(l[i+1][j], l[i][j-1]);
 					}
 			}
